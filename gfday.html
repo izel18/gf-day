@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Scrapbook Timeline</title>
+<link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: url('bgk.jpg') center/cover no-repeat fixed;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      gap: 60px;
+      padding: 40px;
+    }
+
+    .polaroid {
+      width: 260px;
+      background: #fff;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+      padding: 12px;
+      text-align: center;
+      border-radius: 12px;
+      position: relative;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .caption {
+      margin-top: 6px;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    .message {
+      margin-top: 10px;
+      background: #fffafc;
+      border: 2px dashed #ffc0cb;
+      padding: 10px;
+      font-size: 0.9em;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      display: none;
+    }
+
+    .sticker {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: url('hkmoji.png') no-repeat center/cover;
+      pointer-events: none;
+      animation: float 1s ease forwards;
+    }
+
+    @keyframes float {
+      to {
+        transform: translate(var(--x), var(--y)) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra1.jpg" alt="Memory 1" />
+      <div class="caption">BNWWW</div>
+      <img class="sticker" src="https://i.imgur.com/BOWSticker.png" style="top: 0; left: 0;" />
+      <div class="message">FIRST TIME SEEING U WITH THAT FIT, SO PRETTYYYY MY SOON TO BE GF(NOT SOON) + PRETTY VOICEEE 💖</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra2.jpg" alt="Memory 2" />
+      <div class="caption">YOUR FIRST PIC ON MY PHONE</div>
+      <img class="sticker" src="https://i.imgur.com/StarSticker.png" style="top: 0; right: 0;" />
+      <div class="message">SOOOOOO CUTEEE OHMY GOODNESSS 😊</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra3.jpg" alt="Memory 3" />
+      <div class="caption">our first pic tgtttt</div>
+      <div class="message">U LOOKED SO PRETTY I GOT SO KILIG THAT DAY 😍😍</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra4.jpg" alt="Memory 4" />
+      <div class="caption">Our first paco date</div>
+      <div class="message">I BROUGHT CAMMY THIS DAY + OUR FIRSTKISS ❤️</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra5.jpg" alt="Memory 5" />
+      <div class="caption">YOUR BDAYYYY</div>
+      <div class="message">u while typing sa family gc nyo 🌸</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra6.jpg" alt="Memory 6" />
+      <div class="caption">MY BDAYYYYYYYY</div>
+      <div class="message">I CRIED CAUSE ILL MISS U SA XMAS BRAKE BEST BDAY EVERRRRR 🥹</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra7.jpg" alt="Memory 7" />
+      <div class="caption">TAYO NAAAAAAAA(i dont have pic)</div>
+      <div class="message">I WANTED TO SHOUT SA LRT I WS THE HAPPIESTTTTTT 💘</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra8.jpg" alt="Memory 8" />
+      <div class="caption">your sexiest/prettiest pic</div>
+      <div class="message">SOOOOSOOOSOSO YUM UGH THIS MY GF</div>
+    </div>
+
+    <div class="polaroid" onclick="showMessage(event)">
+      <img src="kyra9.jpg" alt="Memory 9" />
+      <div class="caption">your cutest picccccc </div>
+      <div class="message">HEHHEEHE MY BABYYYYYY  💍</div>
+    </div>
+  </div>
+
+  <audio id="bgm" src="bgm.mp3" loop></audio>
+
+    <script>
+  const audio = document.getElementById("bgm");
+  let audioStarted = false;
+
+  // Play audio on first user interaction
+  document.addEventListener('click', () => {
+    if (!audioStarted) {
+      audio.play();
+      audioStarted = true;
+    }
+  });
+
+  function showMessage(event) {
+    const clickedCard = event.currentTarget;
+    const msg = clickedCard.querySelector('.message');
+msg.style.display = 'block';
+
+    // Floating hearts effect
+    for (let i = 0; i < 6; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      const angle = Math.random() * 2 * Math.PI;
+      const radius = 80 + Math.random() * 40;
+      heart.style.setProperty('--x', `${Math.cos(angle) * radius}px`);
+      heart.style.setProperty('--y', `${Math.sin(angle) * radius}px`);
+      heart.style.left = event.clientX + 'px';
+      heart.style.top = event.clientY + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1000);
+    }
+  }
+</script>
+</body>
+</html>
+
